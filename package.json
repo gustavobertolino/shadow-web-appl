@@ -10,9 +10,9 @@
     "react-dom": "17.0.1"
   },
   "scripts": {
-    "build" : "shadow-cljs release :lambda-aws --debug",
+    "build": "shadow-cljs release :lambda-aws --debug",
     "predeploy": "npm run build",
-    "package": "cd public/lambda && tar -acf shadow-web-appl-lambda.zip index.js",
-    "deploy": "cd public/lambda && aws --profile gb-aws lambda update-function-code --function-name shadow-web-appl-lambda --zip-file fileb://./shadow-web-appl-lambda.zip"
+    "package": "cd public/lambda && zip shadow-web-appl-lambda.zip index.js",
+    "deploy": "cd public/lambda && aws --profile gb-aws lambda update-function-code --function-name shadow-web-appl-lambda --zip-file fileb://shadow-web-appl-lambda.zip"
   }
 }
