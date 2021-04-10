@@ -6,15 +6,27 @@
                 [reagent "1.0.0"]
                 [compliment "0.3.11"]]
 
- :dev-http {8091 "public"}
-
- :nrepl {:port 3333}
+ :nrepl {:port 3040}
  :repl-options {:init-ns main.shadowapp
                 :init (in-ns 'main.shadowapp)}
 
  :builds {:frontend
            {:target :browser
             :modules  {:main
-                        {:init-fn main.shadowapp/mount-root}}
+                       {:init-fn main.shadowapp/mount-root}}
             :devtools {:preloads [main.shadowapp]
-                       :after-load main.shadowapp/after-load}}}}
+                       :after-load main.shadowapp/after-load
+                       :http-root "public"
+                       :http-port 3030}}
+          :backend
+           {:target :node-script
+             :output-to "target/main.js"
+             :main main.server/main!
+             :devtools {:after-load main.server/reload!
+                        :http-root "public"
+                        :http-port 8090}}
+          :lambda-aws
+           {:target :node-library
+            :output-to "public/lambda/index.js"
+            :exports {:handler main.lambda/handler}
+            :compiler-options {:infer-externs :auto}}}}

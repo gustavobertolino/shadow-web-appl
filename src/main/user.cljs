@@ -2,5 +2,8 @@
   (:require
    [shadow.cljs.devtools.api :as shadow]))
 
-(defonce change-to-cljs
-  (fn [] (shadow/repl :frontend)))
+(comment
+  (defn change-to-cljs []
+    (shadow/repl :frontend))
+
+  (change-to-cljs))
